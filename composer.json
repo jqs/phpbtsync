@@ -1,0 +1,22 @@
+{
+	"name": "jqs/phpbtsync",
+	"type": "library",
+	"description": "Library to interact with btSync API",
+	"keywords": ["btsync", "bittorrent", "torrent"],
+	"homepage": "https://github.com/jqs/phpbtsync",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "James Q. Stansfield",
+			"email": "jqs@iridani.com",
+			"homepage": "http://iridani.com",
+			"role": "Software Engineer"
+		}
+	],
+	"require": {
+		"php": ">=5.4.0"
+	},
+	"autoload": {
+		"files": ["phpbtsync/phpbtsync.php"]
+	}
+}
