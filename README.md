@@ -3,7 +3,8 @@ phpbtsync
 
 Cheap PHP Wrapper to the btsync API.
 
-
+- Initial Release 0.4.0
+	- Still considered in testing
 
 
 
