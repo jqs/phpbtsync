@@ -133,8 +133,8 @@ class phpbtsync {
 				CURLOPT_FOLLOWLOCATION=>1,
 				CURLOPT_TIMEOUT=>30
 			]);
-		if (count(self::$auth) >1) {
-			curl_setopt($curl, CURLOPT_USERPWD, join(':', self::$auth));
+		if (isset(self::$login) && isset(self::$password)) {
+			curl_setopt($curl, CURLOPT_USERPWD, self::$login . ':' . self::$password);
 		}
 		self::$response = curl_exec($curl);
 		self::$responseInfo = curl_getinfo($curl);
