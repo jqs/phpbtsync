@@ -4,7 +4,7 @@ namespace jqs\phpbtsync;
 
 class phpbtsync {
 	/*
-	 	
+	 	TODO: add http auth
 	 */
 
 	private static $host = '127.0.0.1';
@@ -17,6 +17,7 @@ class phpbtsync {
 	public static $responseInfo = null;
 	public static $responseError = null;
 	public static $responseErrorNumber = null;
+	public static $auth = [];
 
 	private static $methods = [
 		'getFolders'		=> ['get_folders', [], ['secret']],
@@ -31,7 +32,11 @@ class phpbtsync {
 		'setFolderhosts'	=> ['set_folder_hosts', ['secret', 'hosts'], []],
 		'getPreferences'	=> ['get_prefs', [], []],
 		// Add advanced Prefs
-		'setPreferences'	=> ['set_prefs', ['device_name', 'download_limit', 'lang', 'listening_port', 'upload_limit', 'use_upnp'], []],
+		'setPreferences'	=> ['set_prefs', 
+			['device_name', 'download_limit', 'lang', 'listening_port', 'upload_limit', 'use_upnp', 'disk_low_priority', 'folder_rescan_interval', 
+			'lan_encrypt_data', 'log_size', 'max_file_size_diff_for_patching', 'max_file_size_for_versioning', 'rate_limit_local_peers', 
+			'sync_max_time_diff', 'sync_trash_ttl', 'send_buf_size', 'recv_buf_size'],
+			 []],
 		'getOS'				=> ['get_os', [], []],
 		'getVersion'		=> ['get_version', [], []],
 		'getSpeed'			=> ['get_speed', [], []],
@@ -40,6 +45,10 @@ class phpbtsync {
 
 	private function __construct() {
 		// Dead to me
+	}
+
+	public function auth($name, $pass) {
+		self::$auth = [$name, $pass];
 	}
 
 	public static function getInstance($options = array()) {
@@ -113,7 +122,6 @@ class phpbtsync {
 			$url[] = '&' . $params;
 		}
 		$theUrl = implode('', $url);
-		echo $theUrl, "\n";
 		self::$response = null;
 		self::$responseInfo = null;
 		self::$responseError = null;
@@ -125,6 +133,9 @@ class phpbtsync {
 				CURLOPT_FOLLOWLOCATION=>1,
 				CURLOPT_TIMEOUT=>30
 			]);
+		if (count(self::$auth) >1) {
+			curl_setopt($curl, CURLOPT_USERPWD, join(':', self::$auth));
+		}
 		self::$response = curl_exec($curl);
 		self::$responseInfo = curl_getinfo($curl);
 		self::$responseError = curl_error($curl);
