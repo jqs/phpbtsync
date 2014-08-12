@@ -32,11 +32,10 @@ class phpbtsync {
 		'setFolderhosts'	=> ['set_folder_hosts', ['secret', 'hosts'], []],
 		'getPreferences'	=> ['get_prefs', [], []],
 		// Add advanced Prefs
-		'setPreferences'	=> ['set_prefs', 
+		'setPreferences'	=> ['set_prefs', [],
 			['device_name', 'download_limit', 'lang', 'listening_port', 'upload_limit', 'use_upnp', 'disk_low_priority', 'folder_rescan_interval', 
 			'lan_encrypt_data', 'log_size', 'max_file_size_diff_for_patching', 'max_file_size_for_versioning', 'rate_limit_local_peers', 
-			'sync_max_time_diff', 'sync_trash_ttl', 'send_buf_size', 'recv_buf_size'],
-			 []],
+			'sync_max_time_diff', 'sync_trash_ttl', 'send_buf_size', 'recv_buf_size']],
 		'getOS'				=> ['get_os', [], []],
 		'getVersion'		=> ['get_version', [], []],
 		'getSpeed'			=> ['get_speed', [], []],
@@ -70,7 +69,7 @@ class phpbtsync {
 			// Test all required/otional arguments
 			if (is_array(self::$methods[$name][1])) {
 				// Walk each arg and make sure all of the required method args are accounted for
-				foreach(array_keys(self::$methods[$name][1]) as $key) {
+				foreach(self::$methods[$name][1] as $key) {
 					if (!array_key_exists($key, $args[0])) {
 						$error['error'][] = "Missing required param: $key";
 					}
