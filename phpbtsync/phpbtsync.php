@@ -93,17 +93,6 @@ class phpbtsync {
 			$resp = self::sendCall(self::$methods[$name][0], http_build_query($params));
 			// return response
 			return $resp;
-			//$out[] = $name;
-			$out['args'] = $args;
-			$out['zz'] = self::$methods[$name];
-			$out['req'] = array_keys(self::$methods[$name][1]);
-			$out['opt'] = array_keys(self::$methods[$name][2]);
-			$out['method'] = self::$methods[$name][0];
-			$out['p'] = http_build_query($params);
-			$out['url'] = self::sendCall(self::$methods[$name][0], http_build_query($params));
-			$out['err'] = self::$lastError;
-			return print_r($out, true);
-
 		} else {
 			// Nothing to do
 			return false;
