@@ -3,9 +3,6 @@
 namespace jqs\phpbtsync;
 
 class phpbtsync {
-	/*
-	 	TODO: add http auth
-	 */
 
 	private static $host = '127.0.0.1';
 	private static $port = '8888';
